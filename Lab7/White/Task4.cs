@@ -2,54 +2,71 @@ using System;
 
 public struct Participant
 {
-    // ПРИВАТНЫЕ ПОЛЯ
-    private string name;        // имя участника
-    private string surname;      // фамилия участника
-    private double[] scores;     // массив для хранения результатов матчей
-    private int count;           // количество сыгранных матчей
+    private string name;
+    private string surname;
+    private double[] scores;
+    private int count;
 
-    // ПУБЛИЧНЫЕ СВОЙСТВА (только для чтения)
-    public string Name => name;
-    public string Surname => surname;
-    public double[] Scores => scores;  // массив результатов
+    public string Name
+    {
+        get { return name; }
+    }
 
-    // СВОЙСТВО для суммы очков за все матчи
+    public string Surname
+    {
+        get { return surname; }
+    }
+
+    public double[] Scores
+    {
+        get { return scores; }
+    }
+
     public double TotalScore
     {
         get
         {
             double sum = 0;
-            for (int i = 0; i < count; i++)  // суммируем все результаты
+            for (int i = 0; i < count; i++)
+            {
                 sum += scores[i];
+            }
             return sum;
         }
     }
 
-    // КОНСТРУКТОР
     public Participant(string name, string surname)
     {
         this.name = name;
         this.surname = surname;
-        scores = new double[100];  // максимум 100 матчей
-        count = 0;                  // пока матчей нет
+        scores = new double[100];
+        count = 0;
     }
 
-    // МЕТОД для добавления результата матча
     public void PlayMatch(double result)
     {
-        scores[count] = result;  // записываем результат
-        count++;                  // увеличиваем счетчик матчей
+        scores[count] = result;
+        count++;
     }
 
-    // СОРТИРОВКА по убыванию суммы очков
     public static void Sort(Participant[] array)
     {
-        Array.Sort(array, (a, b) => b.TotalScore.CompareTo(a.TotalScore));
+        for (int i = 0; i < array.Length - 1; i++)
+        {
+            for (int j = i + 1; j < array.Length; j++)
+            {
+                if (array[i].TotalScore < array[j].TotalScore)
+                {
+                    Participant temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
     }
 
-    // ВЫВОД информации
     public void Print()
     {
-        Console.WriteLine($"{name} {surname} | Всего очков: {TotalScore}");
+        Console.WriteLine(name + " " + surname + " | Score: " + TotalScore);
     }
 }
