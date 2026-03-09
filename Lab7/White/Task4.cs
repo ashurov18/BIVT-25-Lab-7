@@ -4,69 +4,61 @@ using System.Linq;
 
 namespace Lab7.White
 {
-    public class Task4
+    public struct Participant
+{
+    private string name;
+    private string surname;
+    private double[] scores;
+    private int count;
+
+    public string Name => name;
+    public string Surname => surname;
+    public double[] Scores => scores;
+
+    public double TotalScore
     {
-        public struct Participant
+        get
         {
-            private string name;
-            private string surname;
-            private List<double> scores;  // список для хранения результатов
+            double sum = 0;
+            for (int i = 0; i < count; i++)
+                sum += scores[i];
+            return sum;
+        }
+    }
 
-            // Свойства только для чтения
-            public string Name => name;
-            public string Surname => surname;
+    public Participant(string name, string surname)
+    {
+        this.name = name ?? "";
+        this.surname = surname ?? "";
+        scores = new double[100];
+        count = 0;
+    }
 
-            // СВОЙСТВО SCORES - ИСПРАВЛЕНО!
-            public double[] Scores
+    public void PlayMatch(double result)
+    {
+        scores[count] = result;
+        count++;
+    }
+
+    public static void Sort(Participant[] array)
+    {
+        for (int i = 0; i < array.Length - 1; i++)
+        {
+            for (int j = i + 1; j < array.Length; j++)
             {
-                get
+                if (array[i].TotalScore < array[j].TotalScore)
                 {
-                    return scores.ToArray();  // преобразуем список в массив
-                    // scores всегда существует, так как инициализируется в конструкторе
+                    Participant temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
                 }
-            }
-
-            // Свойство для суммы очков
-            public double TotalScore
-            {
-                get
-                {
-                    if (scores.Count == 0) return 0;
-                    
-                    double sum = 0;
-                    foreach (double score in scores)
-                    {
-                        sum += score;
-                    }
-                    return sum;
-                }
-            }
-
-            // КОНСТРУКТОР 
-            public Participant(string name, string surname)
-            {
-                this.name = name;
-                this.surname = surname;
-                scores = new List<double>(); 
-            }
-
-            // Метод для добавления результата
-            public void PlayMatch(double result)
-            {
-                scores.Add(result);  // добавляем в список
-            }
-
-            // Метод сортировки по убыванию суммы
-            public static void Sort(Participant[] array)
-            {
-                Array.Sort(array, (a, b) => b.TotalScore.CompareTo(a.TotalScore));
-            }
-
-            // Метод вывода
-            public void Print()
-            {
-                Console.WriteLine($"{name} {surname} | Всего очков: {TotalScore}");
             }
         }
     }
+
+    public void Print()
+    {
+        Console.WriteLine($"{name} {surname} Score:{TotalScore}");
+    }
+  }
 }
