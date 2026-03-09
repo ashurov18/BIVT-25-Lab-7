@@ -1,5 +1,8 @@
 using System;
-
+namespace Lab7.White
+{
+    public class Task3
+    {
 public struct Student
 {
     // ПРИВАТНЫЕ ПОЛЯ (скрыты от внешнего доступа)
@@ -59,4 +62,7 @@ public struct Student
     {
         Console.WriteLine($"{name} {surname} | Ср.балл: {AverageMark:F2} | Пропуски: {skipped}");
     }
+  }
+ }
 }
+
