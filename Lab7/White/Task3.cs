@@ -68,4 +68,6 @@ namespace Lab7.White
     {
         Console.WriteLine($"{name} {surname} Avg:{AverageMark} Skipped:{skipped}");
     }
+  }
 }
+
