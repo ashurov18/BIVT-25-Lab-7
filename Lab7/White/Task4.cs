@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Lab7.White
 {
@@ -79,3 +77,4 @@ namespace Lab7.White
         }
     }
 }
+
